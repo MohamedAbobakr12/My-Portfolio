@@ -98,7 +98,7 @@ export default function ExperienceSection() {
               {[
                 { n: '30+', label: 'Projects Completed', emoji: '🚀' },
                 { n: '20+', label: 'Happy Clients', emoji: '🤝' },
-                { n: '1+', label: 'Years Experience', emoji: '⏱️' },
+                { n: '3+', label: 'Years Experience', emoji: '⏱️' },
                 { n: '100%', label: 'Satisfaction Rate', emoji: '⭐' },
                 { n: '10+', label: 'Open Source Repos', emoji: '🐙' },
                 { n: '24/7', label: 'Available Support', emoji: '🛠️' },
