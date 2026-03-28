@@ -2,6 +2,7 @@
 // components/layout/Footer.js
 import { Github, Linkedin, Twitter, Facebook, Phone, Heart } from 'lucide-react'
 import { personalInfo } from '../../lib/data'
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -28,7 +29,7 @@ export default function Footer() {
               { icon: <Facebook size={18} />, href: personalInfo.social.facebook},
               { icon: <Phone size={18} />, href: personalInfo.social.whatsapp},
             ].map((s, i) => (
-              <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
+              <Link key={i} href={s.href} target="_blank" rel="noopener noreferrer"
                 style={{
                   width: '42px', height: '42px',
                   border: '1px solid var(--border)',
@@ -42,7 +43,7 @@ export default function Footer() {
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-muted)' }}
               >
                 {s.icon}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

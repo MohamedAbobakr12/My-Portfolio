@@ -5,12 +5,13 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Send, Mail, MapPin, Clock, CheckCircle } from 'lucide-react'
 import { personalInfo } from '../../lib/data'
+import axios from 'axios'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ContactSection() {
   const sectionRef = useRef(null)
-  const [form, setForm] = useState({ name: '', email: '', budget: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', type: '', message: '' })
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
   const [errors, setErrors] = useState({})
@@ -44,10 +45,15 @@ export default function ContactSection() {
     e.preventDefault()
     if (!validate()) return
     setSending(true)
-    // Simulate API call
-    await new Promise(r => setTimeout(r, 1800))
-    setSending(false)
-    setSent(true)
+
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/contact`, form)
+      setSent(true)
+    } catch (error) {
+      alert('Failed to send message, please try again.')
+    } finally {
+      setSending(false);
+    }
   }
 
   const inputStyle = (field) => ({
@@ -154,7 +160,7 @@ export default function ContactSection() {
                   <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>
                     Thanks for reaching out. I'll get back to you within 24 hours.
                   </p>
-                  <button className="btn-outline" onClick={() => { setSent(false); setForm({ name: '', email: '', budget: '', message: '' }) }}>
+                  <button className="btn-outline" onClick={() => { setSent(false); setForm({ name: '', email: '', type: '', message: '' }) }}>
                     Send Another
                   </button>
                 </div>
@@ -172,12 +178,13 @@ export default function ContactSection() {
                       </label>
                       <input
                         type="text"
-                        placeholder="John Smith"
+                        placeholder="e.g. Mohamed"
                         value={form.name}
                         onChange={e => setForm({ ...form, name: e.target.value })}
                         style={inputStyle('name')}
                         onFocus={e => e.target.style.borderColor = 'var(--border-accent)'}
                         onBlur={e => e.target.style.borderColor = errors.name ? '#ff6b6b' : 'var(--border)'}
+                        required
                       />
                       {errors.name && <span style={{ fontSize: '12px', color: '#ff6b6b', marginTop: '4px', display: 'block' }}>{errors.name}</span>}
                     </div>
@@ -187,32 +194,36 @@ export default function ContactSection() {
                       </label>
                       <input
                         type="email"
-                        placeholder="john@company.com"
+                        placeholder="e.g. name@company.com"
                         value={form.email}
                         onChange={e => setForm({ ...form, email: e.target.value })}
                         style={inputStyle('email')}
                         onFocus={e => e.target.style.borderColor = 'var(--border-accent)'}
                         onBlur={e => e.target.style.borderColor = errors.email ? '#ff6b6b' : 'var(--border)'}
+                        required
                       />
                       {errors.email && <span style={{ fontSize: '12px', color: '#ff6b6b', marginTop: '4px', display: 'block' }}>{errors.email}</span>}
                     </div>
                   </div>
 
-                  {/* Budget */}
+                  {/* Type */}
                   <div>
                     <label style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-dim)', letterSpacing: '0.1em', marginBottom: '8px' }}>
-                      PROJECT BUDGET
+                      PROJECT TYPE
                     </label>
                     <select
-                      value={form.budget}
-                      onChange={e => setForm({ ...form, budget: e.target.value })}
-                      style={{ ...inputStyle('budget'), appearance: 'none' }}
+                      value={form.type}
+                      onChange={e => setForm({ ...form, type: e.target.value })}
+                      style={{ ...inputStyle('type'), appearance: 'none' }}
+                      required
                     >
-                      <option value="" style={{ background: 'var(--bg-card)' }}>Select a range...</option>
-                      <option value="<1k" style={{ background: 'var(--bg-card)' }}>Under $1,000</option>
-                      <option value="1k-3k" style={{ background: 'var(--bg-card)' }}>$1,000 – $3,000</option>
-                      <option value="3k-8k" style={{ background: 'var(--bg-card)' }}>$3,000 – $8,000</option>
-                      <option value="8k+" style={{ background: 'var(--bg-card)' }}>$8,000+</option>
+                      <option value="" style={{ background: 'var(--bg-card)' }}>Select a type...</option>
+                      <option value="landing-page" style={{ background: 'var(--bg-card)' }}>Landing Page</option>
+                      <option value="web-app" style={{ background: 'var(--bg-card)' }}>Web App</option>
+                      <option value="api" style={{ background: 'var(--bg-card)' }}>API Development</option>
+                      <option value="saas" style={{ background: 'var(--bg-card)' }}>SaaS Platform</option>
+                      <option value="ecommerce" style={{ background: 'var(--bg-card)' }}>E-Commerce</option>
+                      <option value="other" style={{ background: 'var(--bg-card)' }}>Other</option>
                     </select>
                   </div>
 

@@ -636,6 +636,24 @@ h1, h2, h3, h4, h5 {
 .chat-messages::-webkit-scrollbar { width: 3px; }
 .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
+.visit-bubble {
+  width: 56px;
+  height: 56px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  gap: 2;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.4);
+  transition: all 0.3s;
+}
+
+.visit-bubble:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 50px rgba(var(--accent-rgb), 0.6);
+}
+
 /* ── Nav ── */
 .nav-link {
   font-family: var(--font-mono);

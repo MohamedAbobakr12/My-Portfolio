@@ -2,8 +2,9 @@
 // components/sections/HeroSection.js
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { ArrowDown, Github, Linkedin, Twitter, Facebook, Phone, Sparkles } from 'lucide-react'
+import { Github, Linkedin, Twitter, Facebook, Phone, Sparkles } from 'lucide-react'
 import { personalInfo } from '../../lib/data'
+import Link from 'next/link'
 
 export default function HeroSection() {
   const sectionRef = useRef(null)
@@ -122,7 +123,6 @@ export default function HeroSection() {
         left: '28px',
         top: '50%',
         transform: 'translateY(-50%)',
-        display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         gap: '16px',
@@ -135,7 +135,7 @@ export default function HeroSection() {
           { icon: <Facebook size={16} />, href: personalInfo.social.facebook },
           { icon: <Phone size={16} />, href: personalInfo.social.whatsapp },
         ].map((s, i) => (
-          <a
+          <Link
             key={i}
             href={s.href}
             target="_blank"
@@ -157,7 +157,7 @@ export default function HeroSection() {
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-muted)' }}
           >
             {s.icon}
-          </a>
+          </Link>
         ))}
         <div style={{ width: '1px', height: '60px', background: 'linear-gradient(to bottom, var(--border), transparent)' }} />
       </div>
@@ -224,7 +224,7 @@ export default function HeroSection() {
 
         {/* CTA Buttons */}
         <div className="hero-ctas" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '64px', opacity: 0 }}>
-          <a
+          <Link
             href="#projects"
             onClick={e => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) }}
             className="btn-primary"
@@ -232,15 +232,15 @@ export default function HeroSection() {
           >
             <Sparkles size={16} />
             View My Work
-          </a>
-          <a
+          </Link>
+          <Link
             href="#contact"
             onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
             className="btn-outline"
             style={{ fontSize: '15px', padding: '16px 32px' }}
           >
             Hire Me →
-          </a>
+          </Link>
         </div>
 
         {/* Stats */}
@@ -315,6 +315,7 @@ export default function HeroSection() {
       </button>
 
       <style>{`
+        .hero-social-container { display: flex; }
         @media (max-width: 768px) {
           .hero-social-container { display: none; }
         }

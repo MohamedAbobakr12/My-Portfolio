@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CheckCircle2, Code2, Rocket, Users } from 'lucide-react'
 import { personalInfo, services } from '../../lib/data'
+import Link from 'next/link'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -141,7 +142,7 @@ export default function AboutSection() {
                 ))}
               </div>
 
-              <a
+              <Link
                 href={personalInfo.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -149,7 +150,7 @@ export default function AboutSection() {
                 style={{ width: '100%', justifyContent: 'center', marginTop: '24px' }}
               >
                 View GitHub Profile
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -188,13 +189,13 @@ export default function AboutSection() {
                   <h4 style={{ fontSize: '17px' }}>{s.title}</h4>
                   <span style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '12px',
+                    fontSize: '18px',
                     color: 'var(--accent)',
                     background: 'var(--accent-dim)',
                     padding: '3px 8px',
                     borderRadius: '3px',
                   }}>
-                    {s.price}
+                    {s.tag}
                   </span>
                 </div>
                 <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: 1.6 }}>{s.description}</p>

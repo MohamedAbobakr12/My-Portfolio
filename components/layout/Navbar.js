@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTheme } from './ThemeProvider'
 import { gsap } from 'gsap'
-import { Sun, Moon, Menu, X } from 'lucide-react'
+import { Sun, Moon, Menu, X, Github, Linkedin, Twitter, Facebook, Phone } from 'lucide-react'
+import Link from 'next/link'
+import { personalInfo } from '../../lib/data'
 
 const navLinks = [
   { label: '01. About', href: '#about' },
@@ -71,7 +73,7 @@ export default function Navbar() {
     >
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Logo */}
-        <a
+        <Link
           href="#"
           onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
           style={{
@@ -84,19 +86,19 @@ export default function Navbar() {
           }}
         >
           MA<span style={{ color: 'var(--accent)' }}>.</span>
-        </a>
+        </Link>
 
         {/* Desktop Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="desktop-nav">
           {navLinks.map(link => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               onClick={e => handleNavClick(e, link.href)}
               className={`nav-link ${activeSection === link.href.slice(1) ? 'active' : ''}`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -123,14 +125,14 @@ export default function Navbar() {
           </button>
 
           {/* Hire Me */}
-          <a
+          <Link
             href="#contact"
             onClick={e => handleNavClick(e, '#contact')}
             className="btn-primary"
             style={{ padding: '10px 20px', fontSize: '13px' }}
           >
             Hire Me
-          </a>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -167,7 +169,7 @@ export default function Navbar() {
           backdropFilter: 'blur(20px)',
         }}>
           {navLinks.map(link => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               onClick={e => handleNavClick(e, link.href)}
@@ -179,8 +181,46 @@ export default function Navbar() {
               }}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
+
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '32px',
+            zIndex: 2,
+          }}>
+            {[
+              { icon: <Github size={16} />, href: personalInfo.social.github },
+              { icon: <Linkedin size={16} />, href: personalInfo.social.linkedin },
+              { icon: <Twitter size={16} />, href: personalInfo.social.twitter },
+              { icon: <Facebook size={16} />, href: personalInfo.social.facebook },
+              { icon: <Phone size={16} />, href: personalInfo.social.whatsapp },
+            ].map((s, i) => (
+              <Link
+                key={i}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-social"
+                style={{
+                  width: '36px', height: '36px',
+                  border: '1px solid var(--border)',
+                  borderRadius: '8px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'var(--text-muted)',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s',
+                  background: 'var(--bg-glass)',
+                  backdropFilter: 'blur(10px)',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-muted)' }}
+              >
+                {s.icon}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
 

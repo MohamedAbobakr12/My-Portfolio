@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { skills } from '../../lib/data'
+import Link from 'next/link'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -43,8 +44,8 @@ export default function SkillsSection() {
     // Animate skill bars
     setTimeout(() => {
       document.querySelectorAll('.skill-bar-fill').forEach(bar => {
-        const level = bar.getAttribute('data-level')
-        bar.style.width = `${level}%`
+        const badge = bar.getAttribute('data-badge')
+        bar.style.width = '100%'
       })
     }, 200)
   }, [animated, filtered])
@@ -61,7 +62,7 @@ export default function SkillsSection() {
           )
           document.querySelectorAll('.skill-bar-fill').forEach(bar => {
             bar.style.width = '0'
-            setTimeout(() => { bar.style.width = `${bar.getAttribute('data-level')}%` }, 100)
+            setTimeout(() => { bar.style.width = `${bar.getAttribute('data-badge')}` }, 100)
           })
         }, 50)
       }
@@ -152,13 +153,13 @@ export default function SkillsSection() {
                   color: 'var(--accent)',
                   fontWeight: 600,
                 }}>
-                  {skill.level}%
+                  {skill.badge}
                 </span>
               </div>
               <div className="skill-bar">
                 <div
                   className="skill-bar-fill"
-                  data-level={skill.level}
+                  data-badge={skill.badge}
                   style={{ width: '0%' }}
                 />
               </div>
@@ -171,14 +172,14 @@ export default function SkillsSection() {
           <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>
             Always learning. Currently exploring: <span style={{ color: 'var(--accent)' }}>AI/ML integration</span> & <span style={{ color: 'var(--accent)' }}>Web3</span>
           </p>
-          <a
+          <Link
             href="https://github.com/MohamedAbobakr12"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline"
           >
             See My Code on GitHub
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,10 +1,12 @@
 // app/layout.js
 import './globals.css'
 import { ThemeProvider } from '../components/layout/ThemeProvider'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import Navbar from '../components/layout/Navbar'
 import CustomCursor from '../components/ui/CustomCursor'
 import LoadingScreen from '../components/ui/LoadingScreen'
 import ChatWidget from '../components/ui/ChatWidget'
+import VisitorCount from '../components/layout/VisitorCount'
 
 export const metadata = {
   title: 'Mohamed Abobakr — MERN Stack Developer',
@@ -30,10 +32,14 @@ export default function RootLayout({ children }) {
           <LoadingScreen />
           <CustomCursor />
           <Navbar />
-          <main>{children}</main>
+          <main>
+            {children}
+            <VisitorCount />
+          </main>
           <ChatWidget />
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId={"G-4ES5F04WCB"} />
     </html>
   )
 }
