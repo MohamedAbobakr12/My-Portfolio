@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { skills } from '../../lib/data'
+import { categoryColors, skills } from '../../lib/data'
 import Link from 'next/link'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -121,7 +121,7 @@ export default function SkillsSection() {
         >
           {filtered.map((skill, i) => (
             <div
-              key={skill.name}
+              key={i}
               className="skill-item"
               style={{
                 background: 'var(--bg-card)',
@@ -153,7 +153,14 @@ export default function SkillsSection() {
                   color: 'var(--accent)',
                   fontWeight: 600,
                 }}>
-                  {skill.badge}
+                  <div style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    background: categoryColors[skill.category],
+                    boxShadow: '0 0 6px 2px ${categoryColors[skill.category]}',
+                    flexShrink: 0,
+                  }} />
                 </span>
               </div>
               <div className="skill-bar">
